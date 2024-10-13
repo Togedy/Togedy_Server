@@ -4,9 +4,11 @@ package Togedy.server.Util;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import lombok.Getter;
 
 import static Togedy.server.Util.BaseResponseStatus.SUCCESS;
 
+@Getter
 @JsonPropertyOrder({"isSuccess", "responseCode", "responseMessage", "result"})
 public class BaseResponse<T> {
     @JsonProperty("isSuccess")

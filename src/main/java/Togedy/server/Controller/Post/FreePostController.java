@@ -10,7 +10,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,8 +37,7 @@ public class FreePostController {
      * 게시글 작성
      */
     @PostMapping("/post")
-    public BaseResponse<Long> createPost(
-            @ModelAttribute @Validated CreatePostRequestDto createPostRequestDto,
+    public BaseResponse<Map<String, Long>> createPost(@ModelAttribute @Validated CreatePostRequestDto createPostRequestDto,
             BindingResult bindingResult) {
 
         // 유효성 검증 실패 시 처리
@@ -44,6 +45,9 @@ public class FreePostController {
 
         Long postId = freePostService.save(createPostRequestDto);
 
-        return new BaseResponse<>(postId);
+        Map<String, Long> response = new HashMap<>();
+        response.put("postId", postId);
+
+        return new BaseResponse<>(response);
     }
 }
