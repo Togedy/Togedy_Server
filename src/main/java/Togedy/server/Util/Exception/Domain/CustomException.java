@@ -1,4 +1,4 @@
-package Togedy.server.Util.Exception;
+package Togedy.server.Util.Exception.Domain;
 
 import Togedy.server.Util.BaseResponseStatus;
 import lombok.Getter;

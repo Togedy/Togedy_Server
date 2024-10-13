@@ -10,6 +10,6 @@ import jakarta.persistence.Enumerated;
 public class MarketPost extends Post {
 
     @Enumerated(EnumType.STRING)
-    private MarketStatus status = MarketStatus.ACTIVE; // 거래 상태
+    private MarketStatus status = MarketStatus.ONGOING; // 거래 상태
 
 }

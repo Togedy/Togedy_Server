@@ -13,19 +13,19 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity {
 
     @Column(name="created_at", updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @Column(name="updated_at")
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
 
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();
-        created_at = now;
-        updated_at = now;
+        createdAt = now;
+        updatedAt = now;
     }
     @PreUpdate
     public void preUpdate() {
-        updated_at = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 }
