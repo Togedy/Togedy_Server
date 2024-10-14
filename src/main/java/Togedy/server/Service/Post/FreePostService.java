@@ -27,7 +27,6 @@ public class FreePostService {
     private final PostRepository postRepository;
     private final S3Uploader s3Uploader;
 
-    // 자유게시판
     public List<ReadPostsResponseDto> getAllFreePosts() {
         List<FreePost> posts = postRepository.findAllFreePosts();
 
@@ -37,23 +36,24 @@ public class FreePostService {
     }
 
     @Transactional
-    public Long save(CreatePostRequestDto createPostRequestDto) {
-        List<PostImage> postImages = Optional.ofNullable(createPostRequestDto.getPostImages())
+    public Long save(CreatePostRequestDto requestDto) {
+        List<PostImage> postImages = Optional.ofNullable(requestDto.getPostImages())
                 .orElse(Collections.emptyList())
                 .stream()
                 .map(file -> {
                     try{
-                        log.info("Received files: {}", createPostRequestDto.getPostImages());
+                        log.info("Received files: {}", requestDto.getPostImages());
                         String postImgUrl = s3Uploader.upload(file, "postImg");
                         log.info("Post Image URL: {}", postImgUrl);
                         return PostImage.builder().imageUrl(postImgUrl).build();
                     } catch (IOException e) {
+                        log.error("File upload failed: {}", file.getOriginalFilename(), e);
                         throw new RuntimeException("Failed to upload file", e);
                     }
                 }).collect(Collectors.toList());
         log.info("Uploading files: {}", postImages);
 
-        FreePost post = createPostRequestDto.freeToEntity(postImages);
+        FreePost post = requestDto.freeToEntity(postImages);
         postImages.forEach(postImage -> postImage.setPost(post));
 
         return postRepository.save(post).getId();

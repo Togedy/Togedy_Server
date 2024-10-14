@@ -21,29 +21,22 @@ public class FreePostController {
 
     private final FreePostService freePostService;
 
-
-    /**
-     * 게시글 조회
-     */
-
     @GetMapping("")
     public BaseResponse<List<ReadPostsResponseDto>> getFreeBoard() {
         List<ReadPostsResponseDto> board = freePostService.getAllFreePosts();
         return new BaseResponse<>(board);
     }
 
-
-    /**
-     * 게시글 작성
-     */
     @PostMapping("/post")
-    public BaseResponse<Map<String, Long>> createPost(@ModelAttribute @Validated CreatePostRequestDto createPostRequestDto,
+    public BaseResponse<Map<String, Long>> createFreePost(
+            @ModelAttribute @Validated
+            CreatePostRequestDto requestDto,
             BindingResult bindingResult) {
 
         // 유효성 검증 실패 시 처리
         if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
 
-        Long postId = freePostService.save(createPostRequestDto);
+        Long postId = freePostService.save(requestDto);
 
         Map<String, Long> response = new HashMap<>();
         response.put("postId", postId);

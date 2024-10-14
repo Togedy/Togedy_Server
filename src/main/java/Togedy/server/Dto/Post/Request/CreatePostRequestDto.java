@@ -1,8 +1,6 @@
 package Togedy.server.Dto.Post.Request;
 
-import Togedy.server.Entity.Board.Post.FreePost;
-import Togedy.server.Entity.Board.Post.Post;
-import Togedy.server.Entity.Board.Post.UnivPost;
+import Togedy.server.Entity.Board.Post.*;
 import Togedy.server.Entity.Board.PostImage;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,4 +33,21 @@ public class CreatePostRequestDto {
                 .postImages(postImages)
                 .build();
     }
+
+    public MarketPost marketToEntity(List<PostImage> postImages) {
+        return MarketPost.builder()
+                .title(title)
+                .content(content)
+                .postImages(postImages)
+                .build();
+    }
+
+    public StudyPost studyToEntity(List<PostImage> postImages) {
+        return StudyPost.builder()
+                .title(title)
+                .content(content)
+                .postImages(postImages)
+                .build();
+    }
+
 }
