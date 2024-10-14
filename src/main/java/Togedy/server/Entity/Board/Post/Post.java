@@ -48,7 +48,7 @@ public abstract class Post extends BaseEntity {
     @Column(name = "base_status")
     private BaseStatus baseStatus = BaseStatus.ACTIVE;
 
-    public Post(User user, String title, String content, List<PostImage> postImages) {
+    public Post (User user, String title, String content, List<PostImage> postImages) {
         this.user = user;
         this.title = title;
         this.content = content;

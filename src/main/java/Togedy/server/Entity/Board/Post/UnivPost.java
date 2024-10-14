@@ -17,13 +17,10 @@ public class UnivPost extends Post {
 
     private String univName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "admission_type")
-    private AdmissionType type;
-
     @Builder
-    public UnivPost(User user, String title, String content, List<PostImage> postImages) {
+    public UnivPost(User user, String title, String content, String univName, List<PostImage> postImages) {
         super(user, title, content, postImages);
+        this.univName = univName;
     }
 
 }
