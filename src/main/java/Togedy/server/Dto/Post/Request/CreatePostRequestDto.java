@@ -26,6 +26,10 @@ public class CreatePostRequestDto {
 
     private List<MultipartFile> postImages;
 
+    private MarketStatus marketStatus; // 장터 게시판에 필요한 필드
+
+    private String univName; // 대학별 게시판에 필요한 필드
+
     public FreePost freeToEntity(List<PostImage> postImages) {
         return FreePost.builder()
                 .title(title)
@@ -38,6 +42,7 @@ public class CreatePostRequestDto {
         return MarketPost.builder()
                 .title(title)
                 .content(content)
+                .status(marketStatus != null ? marketStatus : MarketStatus.ONGOING)  // marketStatus가 null일 때 기본값 설정)
                 .postImages(postImages)
                 .build();
     }
@@ -49,5 +54,16 @@ public class CreatePostRequestDto {
                 .postImages(postImages)
                 .build();
     }
+
+    public UnivPost univToEntity(List<PostImage> postImages) {
+        return UnivPost.builder()
+                .univName(univName)
+                .title(title)
+                .content(content)
+                .postImages(postImages)
+                .build();
+    }
+
+
 
 }

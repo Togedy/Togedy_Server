@@ -27,8 +27,8 @@ public class StudyPostService {
     private final PostRepository postRepository;
     private final S3Uploader s3Uploader;
 
-    public List<ReadPostsResponseDto> getAllFreePosts() {
-        List<FreePost> posts = postRepository.findAllFreePosts();
+    public List<ReadPostsResponseDto> getAllStudyPosts() {
+        List<StudyPost> posts = postRepository.findAllStudyPosts();
 
         return posts.stream()
                 .map(ReadPostsResponseDto::of)

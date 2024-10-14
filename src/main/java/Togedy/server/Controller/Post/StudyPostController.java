@@ -22,13 +22,13 @@ public class StudyPostController {
     private final StudyPostService studyPostService;
 
     @GetMapping("")
-    public BaseResponse<List<ReadPostsResponseDto>> getFreeBoard() {
-        List<ReadPostsResponseDto> board = studyPostService.getAllFreePosts();
+    public BaseResponse<List<ReadPostsResponseDto>> getStudyBoard() {
+        List<ReadPostsResponseDto> board = studyPostService.getAllStudyPosts();
         return new BaseResponse<>(board);
     }
 
     @PostMapping("/post")
-    public BaseResponse<Map<String, Long>> createFreePost(
+    public BaseResponse<Map<String, Long>> createStudyPost(
             @ModelAttribute @Validated
             CreatePostRequestDto requestDto,
             BindingResult bindingResult) {

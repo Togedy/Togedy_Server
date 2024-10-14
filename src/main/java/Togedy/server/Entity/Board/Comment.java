@@ -38,5 +38,6 @@ public class Comment extends BaseEntity {
     private Long targetId;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "base_status")
     private BaseStatus baseStatus = BaseStatus.ACTIVE;
 }

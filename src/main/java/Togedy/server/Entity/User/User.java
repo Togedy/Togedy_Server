@@ -32,5 +32,6 @@ public class User extends BaseEntity {
     private String goal;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "user_status")
     private UserStatus status = UserStatus.ACTIVE;
 }

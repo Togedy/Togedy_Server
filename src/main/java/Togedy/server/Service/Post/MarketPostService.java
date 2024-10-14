@@ -2,9 +2,7 @@ package Togedy.server.Service.Post;
 
 import Togedy.server.Dto.Post.Request.CreatePostRequestDto;
 import Togedy.server.Dto.Post.Response.ReadPostsResponseDto;
-import Togedy.server.Entity.Board.Post.FreePost;
 import Togedy.server.Entity.Board.Post.MarketPost;
-import Togedy.server.Entity.Board.Post.UnivPost;
 import Togedy.server.Entity.Board.PostImage;
 import Togedy.server.Repository.PostRepository;
 import Togedy.server.Service.S3Uploader;

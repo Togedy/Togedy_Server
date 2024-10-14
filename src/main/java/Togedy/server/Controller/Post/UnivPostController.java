@@ -1,14 +1,13 @@
 package Togedy.server.Controller.Post;
 
 import Togedy.server.Dto.Post.Request.CreatePostRequestDto;
-import Togedy.server.Dto.Post.Request.CreateUnivPostRequestDto;
 import Togedy.server.Dto.Post.Request.ReadUnivPostsRequestDto;
 import Togedy.server.Dto.Post.Response.ReadPostsResponseDto;
-import Togedy.server.Entity.Board.Post.UnivPost;
 import Togedy.server.Service.Post.UnivPostService;
 import Togedy.server.Util.BaseResponse;
 import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/board/univ")
+@Slf4j
 public class UnivPostController {
 
     private final UnivPostService univPostService;
@@ -31,7 +31,7 @@ public class UnivPostController {
     }
 
     @PostMapping("/post")
-    public BaseResponse<Map<String, Long>> createUnivPost(@ModelAttribute @Validated CreateUnivPostRequestDto requestDto,
+    public BaseResponse<Map<String, Long>> createUnivPost(@ModelAttribute @Validated CreatePostRequestDto requestDto,
                                                       BindingResult bindingResult) {
 
         // 유효성 검증 실패 시 처리

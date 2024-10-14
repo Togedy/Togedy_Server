@@ -45,12 +45,15 @@ public class S3Uploader {
         String fileExtension = getFileExtension(originFileName);
         String uniqueFilename = generateUniqueFileName(dirName,fileExtension);
 
+        log.info("Original file name: {}, unique name: {}", originFileName, uniqueFilename);
+
         //String fileName = dirName + "/" + file.getOriginalFilename();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(file.getContentType());
         metadata.setContentLength(file.getSize());
 
         try (InputStream inputStream = file.getInputStream()) {
+            log.info("Starting upload for file: {}", uniqueFilename);
             //amazonS3Client.putObject(new PutObjectRequest(bucket, uniqueFilename, inputStream, metadata));
             putS3( uniqueFilename, inputStream, metadata);
             log.info("File uploaded successfully: {}", uniqueFilename);
@@ -78,6 +81,7 @@ public class S3Uploader {
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
     private String putS3(String fileName,InputStream uploadFile, ObjectMetadata metadata) {
+        log.info("Uploading to S3 bucket: {}, file: {}", bucket, fileName);
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile,metadata));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
