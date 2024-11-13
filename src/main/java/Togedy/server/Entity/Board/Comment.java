@@ -33,7 +33,6 @@ public class Comment extends BaseEntity {
     @Column(name = "like_count")
     private int likeCount = 0;
 
-
     @Column(name = "target_id")
     private Long targetId;
 

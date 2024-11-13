@@ -18,8 +18,13 @@ public enum BaseResponseStatus {
     BAD_REQUEST(false, 2000, "잘못된 요청입니다."),
 
     // UserException
-    DUPLICATED_EMAIL(false, 2001, "중복된 이메일입니다.")
-    ,
+    DUPLICATED_EMAIL(false, 2001, "중복된 이메일입니다."),
+
+
+    /**
+     * 4000: Post 게시글 오류
+     */
+    POST_NOT_EXIST(false, 4000, "게시글이 존재하지 않습니다."),
 
     /**
      * 9000 : MultipartFile 오류

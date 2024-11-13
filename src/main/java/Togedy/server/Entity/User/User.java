@@ -14,20 +14,14 @@ public class User extends BaseEntity {
     @Column(name = "user_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
-
     @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
-    private String password;
-
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column(name = "profile_image_url")
+    private String profileImageUrl;
 
     private String goal;
 

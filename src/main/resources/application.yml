@@ -4,5 +4,5 @@ spring:
     group:
       "local": "localPort, localDB, localS3"
       "dev": "devPort, devDB, devS3"
-      "prod": "prodPort, prodDB, devS3"
+      "prod": "prodPort, prodDB, prodS3"
 ---
