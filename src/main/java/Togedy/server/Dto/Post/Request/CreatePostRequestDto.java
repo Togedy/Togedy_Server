@@ -2,6 +2,7 @@ package Togedy.server.Dto.Post.Request;
 
 import Togedy.server.Entity.Board.Post.*;
 import Togedy.server.Entity.Board.PostImage;
+import Togedy.server.Entity.User.User;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -30,16 +31,18 @@ public class CreatePostRequestDto {
 
     private String univName; // 대학별 게시판에 필요한 필드
 
-    public FreePost freeToEntity(List<PostImage> postImages) {
+    public FreePost freeToEntity(User user, List<PostImage> postImages) {
         return FreePost.builder()
+                .user(user)
                 .title(title)
                 .content(content)
                 .postImages(postImages)
                 .build();
     }
 
-    public MarketPost marketToEntity(List<PostImage> postImages) {
+    public MarketPost marketToEntity(User user, List<PostImage> postImages) {
         return MarketPost.builder()
+                .user(user)
                 .title(title)
                 .content(content)
                 .status(marketStatus != null ? marketStatus : MarketStatus.ONGOING)  // marketStatus가 null일 때 기본값 설정)
@@ -47,16 +50,18 @@ public class CreatePostRequestDto {
                 .build();
     }
 
-    public StudyPost studyToEntity(List<PostImage> postImages) {
+    public StudyPost studyToEntity(User user, List<PostImage> postImages) {
         return StudyPost.builder()
+                .user(user)
                 .title(title)
                 .content(content)
                 .postImages(postImages)
                 .build();
     }
 
-    public UnivPost univToEntity(List<PostImage> postImages) {
+    public UnivPost univToEntity(User user, List<PostImage> postImages) {
         return UnivPost.builder()
+                .user(user)
                 .univName(univName)
                 .title(title)
                 .content(content)
