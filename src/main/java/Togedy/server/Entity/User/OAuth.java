@@ -1,6 +1,7 @@
-package Togedy.server.Entity;
+package Togedy.server.Entity.User;
 
-import Togedy.server.Entity.User.User;
+import Togedy.server.Entity.BaseEntity;
+import Togedy.server.Entity.BaseStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

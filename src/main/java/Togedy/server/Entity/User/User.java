@@ -1,9 +1,7 @@
 package Togedy.server.Entity.User;
 
 import Togedy.server.Entity.BaseEntity;
-import Togedy.server.Entity.OAuth;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 
 @Entity

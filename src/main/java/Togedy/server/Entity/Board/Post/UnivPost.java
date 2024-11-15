@@ -1,7 +1,5 @@
 package Togedy.server.Entity.Board.Post;
 
-import Togedy.server.Entity.AdmissionType;
-import Togedy.server.Entity.Board.Post.Post;
 import Togedy.server.Entity.Board.PostImage;
 import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;

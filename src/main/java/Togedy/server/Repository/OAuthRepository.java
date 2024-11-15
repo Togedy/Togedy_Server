@@ -1,6 +1,6 @@
 package Togedy.server.Repository;
 
-import Togedy.server.Entity.OAuth;
+import Togedy.server.Entity.User.OAuth;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

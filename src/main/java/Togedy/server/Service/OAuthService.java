@@ -2,7 +2,7 @@ package Togedy.server.Service;
 
 import Togedy.server.Dto.User.OAuthSignupRequestDto;
 import Togedy.server.Dto.User.Response.UserLoginResponseDto;
-import Togedy.server.Entity.OAuth;
+import Togedy.server.Entity.User.OAuth;
 import Togedy.server.Entity.User.User;
 import Togedy.server.Repository.OAuthRepository;
 import Togedy.server.Repository.UserRepository;
