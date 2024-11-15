@@ -1,6 +1,7 @@
 package Togedy.server.Entity.User;
 
 import Togedy.server.Entity.BaseEntity;
+import Togedy.server.Entity.OAuth;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -28,4 +29,19 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status")
     private UserStatus status = UserStatus.ACTIVE;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "oauth_id")
+    private OAuth oauth;
+
+    public static User createUser(String email, String nickname) {
+        User user = new User();
+        user.email = email;
+        user.nickname = nickname;
+        user.status = UserStatus.ACTIVE;
+        return user;
+    }
+    public void createOauthAssociation(OAuth oAuth) {
+        this.oauth = oAuth;
+    }
 }
