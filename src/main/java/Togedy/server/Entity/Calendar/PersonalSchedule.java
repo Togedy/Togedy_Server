@@ -1,5 +1,6 @@
 package Togedy.server.Entity.Calendar;
 
+import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -7,6 +8,10 @@ import lombok.Getter;
 @Table(name = "Schedule_Personal")
 @Getter
 public class PersonalSchedule extends Schedule{
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     private boolean isShared = false;
 
