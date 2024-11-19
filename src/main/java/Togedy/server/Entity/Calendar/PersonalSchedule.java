@@ -2,7 +2,10 @@ package Togedy.server.Entity.Calendar;
 
 import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Schedule_Personal")
@@ -19,5 +22,10 @@ public class PersonalSchedule extends Schedule{
     @JoinColumn(name = "school_schedule_id")
     private SchoolSchedule schoolSchedule;
 
+    @Builder
+    public PersonalSchedule(User user, String name, String memo, LocalDate startDate, LocalDate endDate, Category category) {
+        super(name, memo, startDate, endDate, category);
+        this.user = user;
 
+    }
 }

@@ -32,4 +32,12 @@ public abstract class Schedule {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    public Schedule(String name, String memo, LocalDate startDate, LocalDate endDate, Category category) {
+        this.name = name;
+        this.memo = memo;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.category = category;
+    }
 }
