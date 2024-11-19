@@ -44,6 +44,13 @@ public enum BaseResponseStatus {
      */
     POST_NOT_EXIST(false, 4000, "게시글이 존재하지 않습니다."),
 
+
+    /**
+     * 5000: Calendar 일정 오류
+     */
+    DUPLICATED_CATEGORYNAME(false, 5001, "중복된 카테고리 이름입니다."),
+
+
     /**
      * 9000 : MultipartFile 오류
      */
