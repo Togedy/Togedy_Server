@@ -1,6 +1,7 @@
 package Togedy.server.Service;
 
 import Togedy.server.Dto.Calendar.Request.CreateCategoryRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadCategoryResponseDto;
 import Togedy.server.Entity.Calendar.Category;
 import Togedy.server.Entity.User.User;
 import Togedy.server.Repository.CategoryRepository;
@@ -12,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -37,5 +41,15 @@ public class CategoryService {
         return categoryRepository.save(category).getId();
     }
 
+    // 사용자별 카테고리 조회
+    public List<ReadCategoryResponseDto> getUserCategories(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
 
+        List<Category> categories = categoryRepository.findByUser(user);
+
+        return categories.stream()
+                .map(ReadCategoryResponseDto::of)
+                .collect(Collectors.toList());
+    }
 }

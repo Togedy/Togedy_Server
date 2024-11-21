@@ -1,6 +1,7 @@
 package Togedy.server.Controller;
 
 import Togedy.server.Dto.Calendar.Request.CreateCategoryRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadCategoryResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.CategoryService;
 import Togedy.server.Util.BaseResponse;
@@ -9,12 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +23,7 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    // 카테고리 추가
     @PostMapping("/category")
     public BaseResponse<Map<String, Long>> createCategory(
             @Validated @RequestBody CreateCategoryRequestDto requestDto,
@@ -37,6 +37,15 @@ public class CategoryController {
         Map<String, Long> response = new HashMap<>();
         response.put("categoryId", categoryId);
 
+        return new BaseResponse<>(response);
+    }
+
+    // 카테고리 조회
+    @GetMapping("/schedule")
+    public BaseResponse<List<ReadCategoryResponseDto>> getUserCategories(
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        List<ReadCategoryResponseDto> response = categoryService.getUserCategories(authMember.getId());
         return new BaseResponse<>(response);
     }
 }

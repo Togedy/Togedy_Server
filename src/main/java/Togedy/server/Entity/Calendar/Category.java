@@ -28,9 +28,6 @@ public class Category extends BaseEntity {
 
     private String color;
 
-    @OneToMany(mappedBy = "category")
-    private List<Schedule> schedules;
-
     @Builder
     public Category(User user, String name, String color) {
         this.user = user;
