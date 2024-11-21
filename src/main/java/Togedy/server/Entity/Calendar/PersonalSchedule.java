@@ -4,12 +4,14 @@ import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Schedule_Personal")
 @Getter
+@NoArgsConstructor
 public class PersonalSchedule extends Schedule{
 
     @ManyToOne(fetch = FetchType.LAZY)

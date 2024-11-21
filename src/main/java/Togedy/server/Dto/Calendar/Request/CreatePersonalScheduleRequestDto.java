@@ -24,6 +24,7 @@ public class CreatePersonalScheduleRequestDto {
     public PersonalSchedule toEntity(User user, Category category) {
         return PersonalSchedule.builder()
                 .user(user)
+                .name(name)
                 .memo(memo)
                 .startDate(startDate)
                 .endDate(endDate)

@@ -1,6 +1,8 @@
 package Togedy.server.Controller;
 
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
+import Togedy.server.Dto.Calendar.Request.ReadScheduleRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.ScheduleService;
 import Togedy.server.Util.BaseResponse;
@@ -12,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,7 +25,14 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     // 개인 월별 캘린더 조회
+    @PostMapping("monthly")
+    public BaseResponse<List<ReadMonthlyResponseDto>> getMonthlyCalendar(
+            @Validated @RequestBody ReadScheduleRequestDto requestDto,
+            @AuthenticationPrincipal AuthMember authMember) {
 
+        List<ReadMonthlyResponseDto> response = scheduleService.getMonthlyCalendar(authMember.getId(), requestDto.getDate());
+        return new BaseResponse<>(response);
+    }
 
     // 개인 날짜별 일정 조회
 

@@ -1,14 +1,9 @@
 package Togedy.server.Dto.Calendar.Request;
 
-import Togedy.server.Entity.Board.Post.MarketPost;
-import Togedy.server.Entity.Board.Post.MarketStatus;
-import Togedy.server.Entity.Board.PostImage;
 import Togedy.server.Entity.Calendar.Category;
 import Togedy.server.Entity.User.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
-import java.util.List;
 
 @Builder
 @Getter
