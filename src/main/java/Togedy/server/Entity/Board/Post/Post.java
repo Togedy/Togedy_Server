@@ -62,4 +62,6 @@ public abstract class Post extends BaseEntity {
         this.postImages.addAll(postImages);
     }
 
+    public void updateInactive() { this.baseStatus = BaseStatus.INACTIVE; }
+
 }

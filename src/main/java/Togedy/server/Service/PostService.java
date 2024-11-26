@@ -162,4 +162,16 @@ public class PostService {
         updateImages.forEach(image -> image.setPost(post));
     }
 
+    @Transactional
+    public void deletePost(Long userId, Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostException(POST_NOT_EXIST));
+
+        // 게시글 작성자 검증
+        if (!post.getUser().getId().equals(userId)) {
+            throw new UserException(INVALID_USER);
+        }
+
+        post.updateInactive();
+    }
 }

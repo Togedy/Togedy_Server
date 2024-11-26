@@ -82,7 +82,17 @@ public class PostController {
         return new BaseResponse<>(response);
     }
 
+    // 게시글 삭제
+    @DeleteMapping("/post/{postId}")
+    public BaseResponse<Map<String, Long>> deletePost(
+            @PathVariable Long postId,
+            @AuthenticationPrincipal AuthMember authMember) {
 
+        postService.deletePost(authMember.getId(), postId);
 
+        Map<String, Long> response = new HashMap<>();
+        response.put("postId", postId);
 
+        return new BaseResponse<>(response);
+    }
 }
