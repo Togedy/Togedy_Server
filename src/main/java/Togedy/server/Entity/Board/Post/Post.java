@@ -8,6 +8,7 @@ import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public abstract class Post extends BaseEntity {
     @Column(columnDefinition = "Text")
     private String content;
 
+    @Setter
     @Column(name = "like_count")
     private int likeCount = 0;
 
