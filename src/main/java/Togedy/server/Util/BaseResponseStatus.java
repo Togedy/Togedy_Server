@@ -38,6 +38,7 @@ public enum BaseResponseStatus {
     DUPLICATED_NICKNAME(false, 2011, "중복된 닉네임입니다."),
     USER_NOT_EXIST(false, 2012, "존재하지 않는 회원입니다."),
     OAUTH_NOT_EXIST(false, 2013, "소셜 계정이 존재하지 않습니다."),
+    INVALID_USER(false, 2013, "일치하지 않는 유저입니다."),
 
     /**
      * 4000: Post 게시글 오류
@@ -57,8 +58,8 @@ public enum BaseResponseStatus {
      */
 
     IS_NOT_IMAGE_FILE(false, 9000, "지원되는 이미지 파일의 형식이 아닙니다."),
-    MULTIPARTFILE_CONVERT_FAIL_IN_MEMORY(false, 9001,"multipartFile memory 변환 과정에서 문제가 생겼습니다.")
-
+    MULTIPARTFILE_CONVERT_FAIL_IN_MEMORY(false, 9001,"multipartFile memory 변환 과정에서 문제가 생겼습니다."),
+    FAILED_TO_UPLOAD_FILE(false, 9002, "이미지 업로드에 실패했습니다."),
     ;
 
     private final boolean isSuccess;

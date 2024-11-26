@@ -62,4 +62,27 @@ public class PostController {
         return new BaseResponse<>(responseDto);
 
     }
+
+    // 게시글 수정
+    @PutMapping("/post/{postId}")
+    public BaseResponse<Map<String, Long>> updatePost(
+            @PathVariable Long postId,
+            @ModelAttribute @Validated CreatePostRequestDto requestDto,
+            BindingResult bindingResult,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        // 유효성 검증 실패 시 처리
+        if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
+
+        postService.updatePost(authMember.getId(), postId, requestDto);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("postId", postId);
+
+        return new BaseResponse<>(response);
+    }
+
+
+
+
 }

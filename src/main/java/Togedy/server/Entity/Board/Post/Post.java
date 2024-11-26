@@ -55,4 +55,11 @@ public abstract class Post extends BaseEntity {
         this.postImages = postImages;
     }
 
+    public void updatePost(String title, String content, List<PostImage> postImages) {
+        this.title = title;
+        this.content = content;
+        this.postImages.clear();
+        this.postImages.addAll(postImages);
+    }
+
 }

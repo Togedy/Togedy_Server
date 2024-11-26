@@ -12,6 +12,7 @@ import Togedy.server.Repository.PostRepository;
 import Togedy.server.Repository.UserRepository;
 import Togedy.server.Util.BaseResponseStatus;
 import Togedy.server.Util.Exception.Domain.CustomException;
+import Togedy.server.Util.Exception.Domain.PostException;
 import Togedy.server.Util.Exception.Domain.UserException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static Togedy.server.Util.BaseResponseStatus.POST_NOT_EXIST;
-import static Togedy.server.Util.BaseResponseStatus.USER_NOT_EXIST;
+import static Togedy.server.Util.BaseResponseStatus.*;
 
 
 @Service
@@ -39,6 +39,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final S3Uploader s3Uploader;
 
+    // 게시글 생성
     @Transactional
     public Long save(Long userId, String boardType, CreatePostRequestDto requestDto) {
         User user = userRepository.findById(userId)
@@ -81,6 +82,7 @@ public class PostService {
         return postRepository.save(post).getId();
     }
 
+    // 게시판별 전체 게시글 조회
     public List<ReadPostsResponseDto> getPostsByBoardType(String boardType, String univName) {
         List<? extends Post> posts;
 
@@ -108,10 +110,11 @@ public class PostService {
 
     }
 
+    // 게시글 상세 조회
     public ReadPostDetailResponseDto getPostDetail(Long userId, Long postId) {
 
         // TODO 1: postId에 해당하는 post find
-        Post post = postRepository.findById(postId).orElseThrow(() -> new CustomException(POST_NOT_EXIST));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_EXIST));
 
         // TODO 2: 유저가 해당 게시글에 좋아요를 눌렀는지 여부 확인
         boolean isLike = postRepository.isUserLikedPost(post.getId(), userId);
@@ -129,4 +132,34 @@ public class PostService {
         // TODO 7: ReadPostDetailResponse 객체로 변환
         return ReadPostDetailResponseDto.of(post, isLike, comments);
     }
+
+    // 게시글 수정
+    @Transactional
+    public void updatePost(Long userId, Long postId, CreatePostRequestDto requestDto) {
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostException(POST_NOT_EXIST));
+
+        // 게시글 작성자 검증
+        if (!post.getUser().getId().equals(userId)) {
+            throw new UserException(INVALID_USER);
+        }
+
+        List<PostImage> updateImages = Optional.ofNullable(requestDto.getPostImages())
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(file -> {
+                    try {
+                        String postImgUrl = s3Uploader.upload(file, "postImg");
+                        return PostImage.builder().imageUrl(postImgUrl).build();
+                    } catch(IOException e) {
+                        throw new CustomException(FAILED_TO_UPLOAD_FILE);
+                    }
+                }).collect(Collectors.toList());
+
+        post.updatePost(requestDto.getTitle(), requestDto.getContent(), updateImages);
+
+        updateImages.forEach(image -> image.setPost(post));
+    }
+
 }
