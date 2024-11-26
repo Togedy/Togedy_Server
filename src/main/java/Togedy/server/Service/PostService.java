@@ -89,16 +89,16 @@ public class PostService {
         // boardType에 따라 매핑할 클래스 지정
         switch (boardType.toLowerCase()) {
             case "free":
-                posts = postRepository.findAllFreePosts();
+                posts = postRepository.findAllActiveFreePosts();
                 break;
             case "study":
-                posts = postRepository.findAllStudyPosts();
+                posts = postRepository.findAllActiveStudyPosts();
                 break;
             case "market":
-                posts = postRepository.findAllMarketPosts();
+                posts = postRepository.findAllActiveMarketPosts();
                 break;
             case "univ":
-                posts = postRepository.findByUnivName(univName);
+                posts = postRepository.findActiveByUnivName(univName);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid board type: " + boardType);

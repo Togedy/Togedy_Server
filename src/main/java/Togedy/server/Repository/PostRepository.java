@@ -13,19 +13,20 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     // 자유게시판 게시글 조회
-    @Query("SELECT p FROM FreePost p")
-    List<FreePost> findAllFreePosts();
+    @Query("SELECT p FROM FreePost p WHERE p.baseStatus = 'ACTIVE'")
+    List<FreePost> findAllActiveFreePosts();
 
     // 장터게시판 게시글 조회
-    @Query("SELECT p FROM MarketPost p")
-    List<MarketPost> findAllMarketPosts();
+    @Query("SELECT p FROM MarketPost p WHERE p.baseStatus = 'ACTIVE'")
+    List<MarketPost> findAllActiveMarketPosts();
 
     // 공부인증게시판 게시글 조회
-    @Query("SELECT p FROM StudyPost p")
-    List<StudyPost> findAllStudyPosts();
+    @Query("SELECT p FROM StudyPost p WHERE p.baseStatus = 'ACTIVE'")
+    List<StudyPost> findAllActiveStudyPosts();
 
     // 대학별 게시글 조회
-    List<UnivPost> findByUnivName(String univName);
+    @Query("SELECT p FROM UnivPost p WHERE p.baseStatus = 'ACTIVE' AND p.univName = :univName")
+    List<UnivPost> findActiveByUnivName(@Param("univName") String univName);
 
     @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END " +
             "FROM PostLike l WHERE l.post.id = :postId AND l.user.id = :userId")
