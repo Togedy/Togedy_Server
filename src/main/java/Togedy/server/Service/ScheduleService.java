@@ -1,6 +1,7 @@
 package Togedy.server.Service;
 
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadDailyResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
 import Togedy.server.Entity.Calendar.Category;
 import Togedy.server.Entity.Calendar.PersonalSchedule;
@@ -83,5 +84,15 @@ public class ScheduleService {
         });
 
         return response;
+    }
+
+    // 개인 날짜별 일정 조회
+    public List<ReadDailyResponseDto> getDailyCalendar(Long userId, LocalDate date) {
+        // 해당 날짜의 일정 조회
+        List<PersonalSchedule> schedules = scheduleRepository.findSchedulesByDate(userId, date);
+
+        return schedules.stream()
+                .map(ReadDailyResponseDto::of)
+                .collect(Collectors.toList());
     }
 }

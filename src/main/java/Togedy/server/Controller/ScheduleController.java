@@ -2,6 +2,7 @@ package Togedy.server.Controller;
 
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
 import Togedy.server.Dto.Calendar.Request.ReadScheduleRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadDailyResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.ScheduleService;
@@ -35,6 +36,14 @@ public class ScheduleController {
     }
 
     // 개인 날짜별 일정 조회
+    @PostMapping("daily")
+    public BaseResponse<List<ReadDailyResponseDto>> getDailyCalendar(
+            @Validated @RequestBody ReadScheduleRequestDto requestDto,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        List<ReadDailyResponseDto> response = scheduleService.getDailyCalendar(authMember.getId(), requestDto.getDate());
+        return new BaseResponse<>(response);
+    }
 
 
     // 개인 일정 추가

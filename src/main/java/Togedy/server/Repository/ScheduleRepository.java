@@ -24,4 +24,14 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
             @Param("startOfMonth") LocalDate startOfMonth,
             @Param("endOfMonth") LocalDate endOfMonth);
 
+    // 개인 일정 날짜별 조회
+    @Query("SELECT ps FROM PersonalSchedule ps " +
+            "JOIN FETCH ps.category c " +
+            "WHERE ps.user.id = :userId " +
+            "AND ps.startDate <= :date " +
+            "AND (ps.endDate IS NULL OR ps.endDate >= :date)")
+    List<PersonalSchedule> findSchedulesByDate(
+            @Param("userId") Long userId,
+            @Param("date") LocalDate date);
+
 }
