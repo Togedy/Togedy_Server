@@ -38,9 +38,7 @@ public class LikeService {
             throw new PostException(BaseResponseStatus.ALREADY_LIKED_THIS_POST);
         }
 
-        PostLike postLike = new PostLike();
-        postLike.setPost(post);
-        postLike.setUser(user);
+        PostLike postLike = new PostLike(user, post);
 
         // 게시글의 좋아요 수 업데이트
         post.setLikeCount(post.getLikeCount() + 1);

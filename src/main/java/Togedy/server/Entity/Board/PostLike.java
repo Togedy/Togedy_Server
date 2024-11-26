@@ -30,9 +30,9 @@ public class PostLike extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public PostLike(Post post, User user) {
-        this.post = post;
+    public PostLike(User user, Post post) {
         this.user = user;
+        this.post = post;
     }
 
 }
