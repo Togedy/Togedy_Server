@@ -55,7 +55,7 @@ public class PostController {
 
     // 게시글 상세 조회
     @GetMapping("/post/{postId}")
-    public BaseResponse<ReadPostDetailResponseDto> getPost(
+    public BaseResponse<ReadPostDetailResponseDto> getPostDetail(
             @PathVariable Long postId,
             @AuthenticationPrincipal AuthMember authMember) {
         ReadPostDetailResponseDto responseDto = postService.getPostDetail(authMember.getId(), postId);

@@ -4,6 +4,8 @@ import Togedy.server.Entity.Board.Comment;
 import Togedy.server.Entity.User.User;
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -17,21 +19,19 @@ public class ReadCommentsResponseDto {
 
     private String content;
 
-    private int commentCount;
     private int likeCount;
     private boolean isLike;
-    private Long targetId;
+    private List<ReadCommentsResponseDto> replies; // 대댓글 리스트
 
-    public static ReadCommentsResponseDto of(Comment comment, boolean isLike, int commentCount) {
+    public static ReadCommentsResponseDto of(Comment comment, boolean isLike, List<ReadCommentsResponseDto> replies) {
         return ReadCommentsResponseDto.builder()
                 .commentId(comment.getId())
                 .userProfileImg(comment.getUser().getProfileImageUrl())
                 .userName(comment.getUser().getNickname())
                 .content(comment.getContent())
-                .commentCount(commentCount)
                 .likeCount(comment.getLikeCount())
                 .isLike(isLike)
-                .targetId(comment.getTargetId())
+                .replies(replies)
                 .build();
     }
 

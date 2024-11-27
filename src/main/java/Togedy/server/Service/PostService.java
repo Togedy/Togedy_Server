@@ -4,6 +4,8 @@ import Togedy.server.Dto.Comment.Response.ReadCommentsResponseDto;
 import Togedy.server.Dto.Post.Request.CreatePostRequestDto;
 import Togedy.server.Dto.Post.Response.ReadPostDetailResponseDto;
 import Togedy.server.Dto.Post.Response.ReadPostsResponseDto;
+import Togedy.server.Entity.BaseStatus;
+import Togedy.server.Entity.Board.Comment;
 import Togedy.server.Entity.Board.Post.*;
 import Togedy.server.Entity.Board.PostImage;
 import Togedy.server.Entity.User.User;
@@ -113,24 +115,36 @@ public class PostService {
     // 게시글 상세 조회
     public ReadPostDetailResponseDto getPostDetail(Long userId, Long postId) {
 
-        // TODO 1: postId에 해당하는 post find
+        // 게시글 조회
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_EXIST));
 
-        // TODO 2: 유저가 해당 게시글에 좋아요를 눌렀는지 여부 확인
+        // 사용자가 게시글을 좋아요했는지 여부 확인
         boolean isLike = postRepository.isUserLikedPost(post.getId(), userId);
 
-        // TODO 3: 댓글 리스트를 ReadCommentsResponse로 변환
-        List<ReadCommentsResponseDto> comments = post.getComments().stream()
-                .map(comment -> {
-                    int commentCount = commentRepository.countByTargetId(comment.getId());
-                    boolean isCommentLiked = commentRepository.isUserLikedComment(comment.getId(), userId);
-
-                    return ReadCommentsResponseDto.of(comment, isCommentLiked, commentCount);
-                })
+        // 게시글에 연결된 댓글 조회
+        List<ReadCommentsResponseDto> comments = commentRepository.findByPostAndBaseStatus(post, BaseStatus.ACTIVE).stream()
+                .filter(comment -> comment.getTargetId() == null) // 최상위 댓글만 조회
+                .map(comment -> mapCommentToDto(comment, userId)) // 댓글 -> DTO 변환
                 .collect(Collectors.toList());
 
-        // TODO 7: ReadPostDetailResponse 객체로 변환
-        return ReadPostDetailResponseDto.of(post, isLike, comments);
+        // 총 댓글 수 계산 (댓글 + 대댓글 포함)
+        int commentCount = commentRepository.findByPostAndBaseStatus(post, BaseStatus.ACTIVE).size();
+
+        return ReadPostDetailResponseDto.of(post, isLike, comments, commentCount);
+    }
+
+    // 댓글 -> DTO 변환
+    private ReadCommentsResponseDto mapCommentToDto(Comment comment, Long userId) {
+        // 사용자가 댓글 좋아요 여부 확인
+        boolean isLike = commentRepository.isUserLikedComment(comment.getId(), userId);
+
+        // 대댓글 리스트 변환
+        List<ReadCommentsResponseDto> replies = commentRepository.findByTargetId(comment.getId()).stream()
+                .filter(reply -> reply.getBaseStatus() == BaseStatus.ACTIVE)
+                .map(reply -> mapCommentToDto(reply, userId))
+                .collect(Collectors.toList());
+
+        return ReadCommentsResponseDto.of(comment, isLike, replies);
     }
 
     // 게시글 수정

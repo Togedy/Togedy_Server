@@ -26,7 +26,7 @@ public class ReadPostDetailResponseDto {
     private List<ReadCommentsResponseDto> comments;
     private boolean isLike;
 
-    public static ReadPostDetailResponseDto of(Post post, boolean isLike, List<ReadCommentsResponseDto> comments){
+    public static ReadPostDetailResponseDto of(Post post, boolean isLike, List<ReadCommentsResponseDto> comments, int commentCount){
         List<String> postImageUrls = post.getPostImages().stream()
                 .map(PostImage::getImageUrl)
                 .toList();
@@ -38,12 +38,9 @@ public class ReadPostDetailResponseDto {
                 .createdAt(post.getCreatedAt())
                 .postImages(postImageUrls)
                 .likeCount(post.getLikeCount())
-                .commentCount(post.getComments().size())
+                .commentCount(commentCount)
                 .comments(comments)
                 .isLike(isLike)
                 .build();
-
     }
-
-
 }
