@@ -45,6 +45,7 @@ public enum BaseResponseStatus {
      */
     POST_NOT_EXIST(false, 4000, "게시글이 존재하지 않습니다."),
     ALREADY_LIKED_THIS_POST(false, 4001, "이미 게시글에 좋아요를 눌렀습니다."),
+    LIKE_NOT_EXIST(false, 4002, "좋아요가 존재하지 않습니다."),
 
 
 

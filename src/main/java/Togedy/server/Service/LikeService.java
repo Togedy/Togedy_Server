@@ -46,5 +46,21 @@ public class LikeService {
         return postLikeRepository.save(postLike).getId();
     }
 
+    // 게시글 좋아요 취소
+    @Transactional
+    public void removeLike(Long userId, Long postId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
 
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.POST_NOT_EXIST));
+
+        PostLike postLike = postLikeRepository.findByUserAndPost(user, post)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.LIKE_NOT_EXIST));
+
+        postLikeRepository.delete(postLike);
+
+        // 게시글의 좋아요 수 업데이트
+        post.setLikeCount(post.getLikeCount() - 1);
+    }
 }

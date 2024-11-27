@@ -5,10 +5,7 @@ import Togedy.server.Service.LikeService;
 import Togedy.server.Util.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +27,20 @@ public class LikeController {
 
         Map<String, Long> response = new HashMap<>();
         response.put("postLikeId", postLikeId);
+
+        return new BaseResponse<>(response);
+    }
+
+    // 게시글 좋아요 취소
+    @DeleteMapping("/{postId}")
+    public BaseResponse<Map<String, String>> unlikePost(
+            @PathVariable Long postId,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        likeService.removeLike(authMember.getId(), postId);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Unliked the post successfully");
 
         return new BaseResponse<>(response);
     }
