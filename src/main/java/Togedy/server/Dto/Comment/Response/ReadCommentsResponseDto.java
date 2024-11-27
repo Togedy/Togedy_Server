@@ -20,7 +20,7 @@ public class ReadCommentsResponseDto {
     private String content;
 
     private int likeCount;
-    private boolean isLike;
+    private boolean isCommentLike;
     private List<ReadCommentsResponseDto> replies; // 대댓글 리스트
 
     public static ReadCommentsResponseDto of(Comment comment, boolean isLike, List<ReadCommentsResponseDto> replies) {
@@ -30,7 +30,7 @@ public class ReadCommentsResponseDto {
                 .userName(comment.getUser().getNickname())
                 .content(comment.getContent())
                 .likeCount(comment.getLikeCount())
-                .isLike(isLike)
+                .isCommentLike(isLike)
                 .replies(replies)
                 .build();
     }

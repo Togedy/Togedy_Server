@@ -6,12 +6,14 @@ import Togedy.server.Entity.Board.Post.Post;
 import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "Post_Comments")
 @Getter
+@NoArgsConstructor
 public class Comment extends BaseEntity {
 
     @Id
@@ -39,4 +41,11 @@ public class Comment extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "base_status")
     private BaseStatus baseStatus = BaseStatus.ACTIVE;
+
+    public Comment(User user, Post post, String content, Comment targetComment) {
+        this.user = user;
+        this.post = post;
+        this.content = content;
+        this.targetId = targetComment != null ? targetComment.getId() : null;
+    }
 }
