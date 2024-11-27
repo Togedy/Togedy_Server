@@ -32,7 +32,7 @@ public class LikeController {
     }
 
     // 게시글 좋아요 취소
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/like")
     public BaseResponse<Map<String, String>> unlikePost(
             @PathVariable Long postId,
             @AuthenticationPrincipal AuthMember authMember) {
