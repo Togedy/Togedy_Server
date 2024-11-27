@@ -48,4 +48,8 @@ public class Comment extends BaseEntity {
         this.content = content;
         this.targetId = targetComment != null ? targetComment.getId() : null;
     }
+
+    public void updateInactive() {
+        this.baseStatus = BaseStatus.INACTIVE;
+    }
 }

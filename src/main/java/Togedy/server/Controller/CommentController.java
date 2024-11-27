@@ -6,6 +6,7 @@ import Togedy.server.Service.CommentService;
 import Togedy.server.Util.BaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,4 +35,18 @@ public class CommentController {
         return new BaseResponse<>(response);
     }
 
+    // 댓글 삭제
+    @DeleteMapping("/{commentId}")
+    public BaseResponse<Map<String, Long>> deleteComment(
+            @PathVariable Long postId,
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        commentService.deleteComment(authMember.getId(), postId, commentId);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("commentId", commentId);
+
+        return new BaseResponse<>(response);
+    }
 }

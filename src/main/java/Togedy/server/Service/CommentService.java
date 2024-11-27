@@ -43,7 +43,24 @@ public class CommentService {
 
         Comment comment = new Comment(user, post, requestDto.getContent(), targetComment);
         return commentRepository.save(comment).getId();
-
     }
 
+    // 댓글 삭제
+    @Transactional
+    public void deleteComment(Long userId, Long postId, Long commentId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.POST_NOT_EXIST));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.COMMENT_NOT_EXIST));
+
+        if (!comment.getUser().getId().equals(userId)) {
+            throw new UserException(BaseResponseStatus.INVALID_USER);
+        }
+
+        comment.updateInactive();
+    }
 }
