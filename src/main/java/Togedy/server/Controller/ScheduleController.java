@@ -7,6 +7,7 @@ import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.ScheduleService;
 import Togedy.server.Util.BaseResponse;
+import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -54,7 +55,7 @@ public class ScheduleController {
             @AuthenticationPrincipal AuthMember authMember) {
 
         // 유효성 검증 실패 시 처리
-        if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
 
         Long scheduleId = scheduleService.save(authMember.getId(), requestDto);
         Map<String, Long> response = new HashMap<>();

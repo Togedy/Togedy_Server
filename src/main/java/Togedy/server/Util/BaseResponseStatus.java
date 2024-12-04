@@ -40,6 +40,11 @@ public enum BaseResponseStatus {
     OAUTH_NOT_EXIST(false, 2013, "소셜 계정이 존재하지 않습니다."),
     INVALID_USER(false, 2013, "일치하지 않는 유저입니다."),
 
+    INVALID_FIELD(false, 2030, "요청 값이 잘못되었습니다."),
+    EMPTY_REQUEST_PARAMETER(false, 2031, "Request Parameter가 존재하지 않습니다."),
+    METHOD_ARGUMENT_TYPE_MISMATCH(false, 2032, "Request Parameter나 Path Variable의 유형이 불일치합니다."),
+
+
     /**
      * 4000: Post 게시글 오류
      */

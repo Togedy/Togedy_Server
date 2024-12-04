@@ -5,6 +5,7 @@ import Togedy.server.Dto.Calendar.Response.ReadCategoryResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.CategoryService;
 import Togedy.server.Util.BaseResponse;
+import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -31,7 +32,7 @@ public class CategoryController {
             @AuthenticationPrincipal AuthMember authMember) {
 
         // 유효성 검증 실패 시 처리
-        if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
 
         Long categoryId = categoryService.createCategory(authMember.getId(), requestDto);
         Map<String, Long> response = new HashMap<>();

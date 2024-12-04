@@ -4,6 +4,7 @@ import Togedy.server.Dto.User.Request.UserLoginRequestDto;
 import Togedy.server.Dto.User.Response.UserLoginResponseDto;
 import Togedy.server.Service.UserService;
 import Togedy.server.Util.BaseResponse;
+import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class UserController {
 
     @PostMapping("/login")
     public BaseResponse<UserLoginResponseDto> createUserForTest(@Validated @RequestBody UserLoginRequestDto requestDto, BindingResult bindingResult) {
-        if (bindingResult.hasFieldErrors()) throw new ValidationException(bindingResult);
+        if (bindingResult.hasFieldErrors()) throw new FieldValidationException(bindingResult);
         UserLoginResponseDto responseDto = userService.createUserForTest(requestDto);
         return new BaseResponse<>(responseDto);
     }

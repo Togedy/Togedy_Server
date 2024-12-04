@@ -6,6 +6,7 @@ import Togedy.server.Dto.Post.Response.ReadPostsResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.PostService;
 import Togedy.server.Util.BaseResponse;
+import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,7 +35,7 @@ public class PostController {
             @AuthenticationPrincipal AuthMember authMember) {
 
         // 유효성 검증 실패 시 처리
-        if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
 
         Long postId = postService.save(authMember.getId(), boardType, requestDto);
 
@@ -72,7 +73,7 @@ public class PostController {
             @AuthenticationPrincipal AuthMember authMember) {
 
         // 유효성 검증 실패 시 처리
-        if (bindingResult.hasErrors()) throw new ValidationException(bindingResult);
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
 
         postService.updatePost(authMember.getId(), postId, requestDto);
 
