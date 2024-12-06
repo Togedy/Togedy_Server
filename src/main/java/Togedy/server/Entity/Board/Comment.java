@@ -7,6 +7,7 @@ import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -32,6 +33,7 @@ public class Comment extends BaseEntity {
     @Column(columnDefinition = "Text")
     private String content;
 
+    @Setter
     @Column(name = "like_count")
     private int likeCount = 0;
 

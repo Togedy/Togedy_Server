@@ -4,12 +4,14 @@ import Togedy.server.Entity.BaseEntity;
 import Togedy.server.Entity.User.User;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "Comment_Likes")
 @Getter
+@NoArgsConstructor
 public class CommentLike extends BaseEntity {
 
     @Id
@@ -24,4 +26,9 @@ public class CommentLike extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public CommentLike(User user, Comment comment) {
+        this.user = user;
+        this.comment = comment;
+    }
 }

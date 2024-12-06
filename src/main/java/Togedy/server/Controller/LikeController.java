@@ -23,7 +23,7 @@ public class LikeController {
             @PathVariable Long postId,
             @AuthenticationPrincipal AuthMember authMember) {
 
-        Long postLikeId = likeService.addLike(authMember.getId(), postId);
+        Long postLikeId = likeService.addPostLike(authMember.getId(), postId);
 
         Map<String, Long> response = new HashMap<>();
         response.put("postLikeId", postLikeId);
@@ -37,10 +37,25 @@ public class LikeController {
             @PathVariable Long postId,
             @AuthenticationPrincipal AuthMember authMember) {
 
-        likeService.removeLike(authMember.getId(), postId);
+        likeService.removePostLike(authMember.getId(), postId);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Unliked the post successfully");
+
+        return new BaseResponse<>(response);
+    }
+
+    // 댓글 좋아요
+    @PostMapping("/comment/{commentId}/like")
+    public BaseResponse<Map<String, Long>> likeComment(
+            @PathVariable Long postId,
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        Long commentLikeId = likeService.addCommentLike(authMember.getId(), postId, commentId);
+
+        Map<String, Long> response = new HashMap<>();
+        response.put("commentLikeId", commentLikeId);
 
         return new BaseResponse<>(response);
     }

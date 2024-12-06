@@ -52,6 +52,8 @@ public enum BaseResponseStatus {
     ALREADY_LIKED_THIS_POST(false, 4001, "이미 게시글에 좋아요를 눌렀습니다."),
     LIKE_NOT_EXIST(false, 4002, "좋아요가 존재하지 않습니다."),
     COMMENT_NOT_EXIST(false, 4003, "댓글이 존재하지 않습니다."),
+    ALREADY_LIKED_THIS_COMMENT(false, 4004, "이미 댓글에 좋아요를 눌렀습니다."),
+    COMMENT_NOT_BELONG_TO_POST(false, 4005, "댓글이 해당 게시글에 속하지 않습니다."),
 
 
     /**
