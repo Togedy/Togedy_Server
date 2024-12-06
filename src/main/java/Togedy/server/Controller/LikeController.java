@@ -60,5 +60,18 @@ public class LikeController {
         return new BaseResponse<>(response);
     }
 
+    // 댓글 좋아요 취소
+    @DeleteMapping("/comment/{commentId}/like")
+    public BaseResponse<Map<String, String>> unlikeComment(
+            @PathVariable Long postId,
+            @PathVariable Long commentId,
+            @AuthenticationPrincipal AuthMember authMember) {
 
+        likeService.removeCommentLike(authMember.getId(), postId, commentId);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Unliked the comment successfully");
+
+        return new BaseResponse<>(response);
+    }
 }

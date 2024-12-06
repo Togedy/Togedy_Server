@@ -96,5 +96,29 @@ public class LikeService {
         return commentLikeRepository.save(commentLike).getId();
     }
 
+    // 댓글 좋아요 취소
+    @Transactional
+    public void removeCommentLike(Long userId, Long postId, Long commentId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
 
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.POST_NOT_EXIST));
+
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.COMMENT_NOT_EXIST));
+
+        // 댓글이 해당 게시글에 속하지 않는 경우 예외 처리
+        if (!comment.getPost().equals(post)) {
+            throw new PostException(BaseResponseStatus.COMMENT_NOT_BELONG_TO_POST);
+        }
+
+        CommentLike commentLike = commentLikeRepository.findByUserAndComment(user, comment)
+                .orElseThrow(() -> new PostException(BaseResponseStatus.LIKE_NOT_EXIST));
+
+        commentLikeRepository.delete(commentLike);
+
+        // 댓글의 좋아요 수 업데이트
+        comment.setLikeCount(comment.getLikeCount() - 1);
+    }
 }
