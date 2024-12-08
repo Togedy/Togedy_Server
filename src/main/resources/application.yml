@@ -1,6 +1,5 @@
 spring:
   profiles:
-    active: local
     group:
       "local": "localPort, localDB, localS3, localSecret"
       "dev": "devPort, devDB, devS3, devSecret"
@@ -50,7 +49,7 @@ cloud:
       access-key: ${S3-ACCESS-KEY}
       secret-key: ${S3-SECRET-KEY}
     s3:
-      bucket: togedybucket
+      bucket: togedy-bucket
     region:
       static: ap-northeast-2 # 리전 정보(서울)
     stack:
