@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ReadPostsResponseDto {
 
+    private Long postId;
     private String title;
     private LocalDateTime createdAt;
     private String content;
@@ -28,6 +29,7 @@ public class ReadPostsResponseDto {
                 .toList();
 
         return ReadPostsResponseDto.builder()
+                .postId(post.getId())
                 .title(post.getTitle())
                 .createdAt(post.getCreatedAt())
                 .content(post.getContent())
