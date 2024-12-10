@@ -1,6 +1,7 @@
 package Togedy.server.Service;
 
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
+import Togedy.server.Dto.Calendar.Response.ReadCategoryResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadDailyResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
 import Togedy.server.Entity.Calendar.Category;
@@ -92,7 +93,10 @@ public class ScheduleService {
         List<PersonalSchedule> schedules = scheduleRepository.findSchedulesByDate(userId, date);
 
         return schedules.stream()
-                .map(ReadDailyResponseDto::of)
+                .map(schedule -> {
+                    ReadCategoryResponseDto categoryDto = ReadCategoryResponseDto.of(schedule.getCategory());
+                    return ReadDailyResponseDto.of(schedule, categoryDto);
+                })
                 .collect(Collectors.toList());
     }
 }

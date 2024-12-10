@@ -19,16 +19,16 @@ public class ReadDailyResponseDto {
     private String memo;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Category category;
+    private ReadCategoryResponseDto category;
 
-    public static ReadDailyResponseDto of(Schedule schedule) {
+    public static ReadDailyResponseDto of(Schedule schedule, ReadCategoryResponseDto category) {
         return ReadDailyResponseDto.builder()
                 .id(schedule.getId())
                 .name(schedule.getName())
                 .memo(schedule.getMemo())
                 .startDate(schedule.getStartDate())
                 .endDate(schedule.getEndDate())
-                .category(schedule.getCategory())
+                .category(category)
                 .build();
     }
 }
