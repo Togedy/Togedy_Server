@@ -60,7 +60,8 @@ public enum BaseResponseStatus {
      * 5000: Calendar 일정 오류
      */
     DUPLICATED_CATEGORYNAME(false, 5001, "중복된 카테고리 이름입니다."),
-    CATEGORY_NOT_EXIST(false, 4002, "존재하지 않는 카테고리입니다."),
+    CATEGORY_NOT_EXIST(false, 5002, "존재하지 않는 카테고리입니다."),
+    INVALID_DATE_RANGE(false, 5003, "잘못된 날짜 범위입니다."),
 
 
     /**

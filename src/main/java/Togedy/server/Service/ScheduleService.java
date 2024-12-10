@@ -44,6 +44,11 @@ public class ScheduleService {
         Category category = categoryRepository.findById(requestDto.getCategoryId())
                 .orElseThrow(() -> new CalendarException(BaseResponseStatus.CATEGORY_NOT_EXIST));
 
+        // startDate와 endDate 비교
+        if(requestDto.getEndDate() != null && requestDto.getEndDate().isBefore(requestDto.getStartDate())) {
+            throw new CalendarException(BaseResponseStatus.INVALID_DATE_RANGE);
+        }
+
         PersonalSchedule schedule = requestDto.toEntity(user, category);
 
         return scheduleRepository.save(schedule).getId();
