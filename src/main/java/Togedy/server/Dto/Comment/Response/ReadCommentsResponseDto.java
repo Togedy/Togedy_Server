@@ -1,5 +1,6 @@
 package Togedy.server.Dto.Comment.Response;
 
+import Togedy.server.Entity.BaseStatus;
 import Togedy.server.Entity.Board.Comment;
 import Togedy.server.Entity.User.User;
 import lombok.*;
@@ -21,6 +22,7 @@ public class ReadCommentsResponseDto {
 
     private int likeCount;
     private boolean isCommentLike;
+    private BaseStatus commentStatus;
     private List<ReadCommentsResponseDto> replies; // 대댓글 리스트
 
     public static ReadCommentsResponseDto of(Comment comment, boolean isLike, List<ReadCommentsResponseDto> replies) {
@@ -31,6 +33,7 @@ public class ReadCommentsResponseDto {
                 .content(comment.getContent())
                 .likeCount(comment.getLikeCount())
                 .isCommentLike(isLike)
+                .commentStatus(comment.getBaseStatus())
                 .replies(replies)
                 .build();
     }

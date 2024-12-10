@@ -122,13 +122,13 @@ public class PostService {
         boolean isLike = postRepository.isUserLikedPost(post.getId(), userId);
 
         // 게시글에 연결된 댓글 조회
-        List<ReadCommentsResponseDto> comments = commentRepository.findByPostAndBaseStatus(post, BaseStatus.ACTIVE).stream()
+        List<ReadCommentsResponseDto> comments = commentRepository.findByPost(post).stream()
                 .filter(comment -> comment.getTargetId() == null) // 최상위 댓글만 조회
                 .map(comment -> mapCommentToDto(comment, userId)) // 댓글 -> DTO 변환
                 .collect(Collectors.toList());
 
         // 총 댓글 수 계산 (댓글 + 대댓글 포함)
-        int commentCount = commentRepository.findByPostAndBaseStatus(post, BaseStatus.ACTIVE).size();
+        int commentCount = commentRepository.findByPost(post).size();
 
         return ReadPostDetailResponseDto.of(post, isLike, comments, commentCount);
     }
