@@ -2,6 +2,7 @@ package Togedy.server.Entity.StudyPlanner;
 
 import Togedy.server.Entity.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,12 +33,11 @@ public class StudyPlan extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PlanStatus status = PlanStatus.NOT_STARTED;
 
-    public static StudyPlan createStudyPlan(Planner planner, String name, LocalDate date, StudyTag studyTag) {
-        StudyPlan studyPlan = new StudyPlan();
-        studyPlan.planner = planner;
-        studyPlan.name = name;
-        studyPlan.date = date;
-        studyPlan.studyTag = studyTag;
-        return studyPlan;
+    @Builder
+    public StudyPlan(Planner planner, String name, LocalDate date, StudyTag studyTag) {
+        this.planner = planner;
+        this.name = name;
+        this.date = date;
+        this.studyTag = studyTag;
     }
 }

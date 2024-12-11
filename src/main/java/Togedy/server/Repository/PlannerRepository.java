@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface PlannerRepository extends JpaRepository<Planner, Long> {
-
+    Optional<Planner> findByUserId(Long userId);
     Optional<Planner> findByUser(User user);
 
 }
