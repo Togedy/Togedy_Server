@@ -1,8 +1,12 @@
 package Togedy.server.Entity.User;
 
 import Togedy.server.Entity.BaseEntity;
+import Togedy.server.Entity.StudyPlanner.Planner;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -23,8 +27,6 @@ public class User extends BaseEntity {
     @Column(name = "profile_image_url")
     private String profileImageUrl;
 
-    private String goal;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status")
     private UserStatus status = UserStatus.ACTIVE;
@@ -32,6 +34,9 @@ public class User extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oauth_id")
     private OAuth oauth;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Planner planner;
 
     public static User createUser(String email, String nickname) {
         User user = new User();

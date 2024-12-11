@@ -24,6 +24,10 @@ public class StudyGoal extends BaseEntity {
 
     private LocalTime actualTime; // HH:mm
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "planner_id")
+    private Planner planner;
+
     public int calculateAchievement() {
         // 목표 시간 대비 실제 시간의 비율 계산
         long targetMinutes = targetTime.toSecondOfDay() / 60;

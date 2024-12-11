@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Study_Plan")
+@Table(name = "Study_Plans")
 @Getter
 @NoArgsConstructor
 public class StudyPlan extends BaseEntity {
@@ -18,6 +18,7 @@ public class StudyPlan extends BaseEntity {
     private Long id;
 
     private LocalDate date;
+
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,9 +26,18 @@ public class StudyPlan extends BaseEntity {
     private Planner planner;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "study_tag_id")
-    private StudyTag tag;
+    @JoinColumn(name = "study_tag_id", nullable = false)
+    private StudyTag studyTag;
 
     @Enumerated(EnumType.STRING)
-    private PlanStatus status;
+    private PlanStatus status = PlanStatus.NOT_STARTED;
+
+    public static StudyPlan createStudyPlan(Planner planner, String name, LocalDate date, StudyTag studyTag) {
+        StudyPlan studyPlan = new StudyPlan();
+        studyPlan.planner = planner;
+        studyPlan.name = name;
+        studyPlan.date = date;
+        studyPlan.studyTag = studyTag;
+        return studyPlan;
+    }
 }

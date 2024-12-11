@@ -19,7 +19,9 @@ public class StudyRecord extends BaseEntity {
     private Long id;
 
     private LocalDate date;
+
     private LocalTime startTime;
+
     private LocalTime endTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

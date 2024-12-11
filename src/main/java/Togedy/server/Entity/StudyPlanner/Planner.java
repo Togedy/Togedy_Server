@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Planner")
+@Table(name = "Planners")
 @Getter
 @NoArgsConstructor
 public class Planner extends BaseEntity {
@@ -19,7 +19,7 @@ public class Planner extends BaseEntity {
     @Column(name = "planner_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "planner", fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -34,5 +34,11 @@ public class Planner extends BaseEntity {
 
     @OneToMany(mappedBy = "planner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<StudyRecord> studyRecords = new ArrayList<>();
+
+    public static Planner createPlanner(User user) {
+        Planner planner = new Planner();
+        planner.user = user;
+        return planner;
+    }
 
 }
