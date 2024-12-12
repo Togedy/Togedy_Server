@@ -1,6 +1,8 @@
 package Togedy.server.Controller;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
+import Togedy.server.Dto.Planner.Request.ReadStudyPlansRequestDto;
+import Togedy.server.Dto.Planner.Response.ReadStudyPlansResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.StudyPlanService;
 import Togedy.server.Util.BaseResponse;
@@ -9,12 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,6 +24,7 @@ public class StudyPlanController {
 
     private final StudyPlanService studyPlanService;
 
+    // 스터디 플랜 생성
     @PostMapping("")
     public BaseResponse<Map<String, Long>> createStudyPlan(
             @Validated @RequestBody CreateStudyPlanRequestDto requestDto,
@@ -38,6 +39,21 @@ public class StudyPlanController {
 
         return new BaseResponse<>(response);
     }
+
+    // 날짜별 스터디 플랜 조회
+    @GetMapping("")
+    public BaseResponse<List<ReadStudyPlansResponseDto>> getStudyPlansByDate(
+            @RequestBody @Validated ReadStudyPlansRequestDto requestDto,
+            @AuthenticationPrincipal AuthMember authMember,
+            BindingResult bindingResult) {
+        // 유효성 검증 실패 시 처리
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
+
+        List<ReadStudyPlansResponseDto> response = studyPlanService.getStudyPlansByDate(authMember.getId(), requestDto);
+
+        return new BaseResponse<>(response);
+    }
+
 
 
 }
