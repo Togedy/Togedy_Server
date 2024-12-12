@@ -25,7 +25,7 @@ public class StudyPlanController {
     private final StudyPlanService studyPlanService;
 
     // 스터디 플랜 생성
-    @PostMapping("")
+    @PostMapping("/create")
     public BaseResponse<Map<String, Long>> createStudyPlan(
             @Validated @RequestBody CreateStudyPlanRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember,
@@ -41,7 +41,7 @@ public class StudyPlanController {
     }
 
     // 날짜별 스터디 플랜 조회
-    @GetMapping("")
+    @PostMapping("")
     public BaseResponse<List<ReadStudyPlansResponseDto>> getStudyPlansByDate(
             @RequestBody @Validated ReadStudyPlansRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember,
