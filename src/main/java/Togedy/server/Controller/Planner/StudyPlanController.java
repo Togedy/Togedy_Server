@@ -1,10 +1,10 @@
-package Togedy.server.Controller;
+package Togedy.server.Controller.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
 import Togedy.server.Dto.Planner.Request.ReadStudyPlansRequestDto;
 import Togedy.server.Dto.Planner.Response.ReadStudyPlansResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
-import Togedy.server.Service.StudyPlanService;
+import Togedy.server.Service.Planner.StudyPlanService;
 import Togedy.server.Util.BaseResponse;
 import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import lombok.RequiredArgsConstructor;

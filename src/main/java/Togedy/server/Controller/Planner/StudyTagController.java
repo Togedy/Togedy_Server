@@ -1,8 +1,8 @@
-package Togedy.server.Controller;
+package Togedy.server.Controller.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyTagRequestDto;
 import Togedy.server.Security.Auth.AuthMember;
-import Togedy.server.Service.StudyTagService;
+import Togedy.server.Service.Planner.StudyTagService;
 import Togedy.server.Util.BaseResponse;
 import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import lombok.RequiredArgsConstructor;

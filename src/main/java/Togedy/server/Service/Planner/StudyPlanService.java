@@ -1,4 +1,4 @@
-package Togedy.server.Service;
+package Togedy.server.Service.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
 import Togedy.server.Dto.Planner.Request.ReadStudyPlansRequestDto;
@@ -8,9 +8,9 @@ import Togedy.server.Entity.StudyPlanner.StudyPlan;
 import Togedy.server.Entity.StudyPlanner.StudyRecord;
 import Togedy.server.Entity.StudyPlanner.StudyTag;
 import Togedy.server.Repository.PlannerRepository;
-import Togedy.server.Repository.StudyPlanRepository;
-import Togedy.server.Repository.StudyRecordRepository;
-import Togedy.server.Repository.StudyTagRepository;
+import Togedy.server.Repository.Planner.StudyPlanRepository;
+import Togedy.server.Repository.Planner.StudyRecordRepository;
+import Togedy.server.Repository.Planner.StudyTagRepository;
 import Togedy.server.Util.BaseResponseStatus;
 import Togedy.server.Util.Exception.Domain.PlannerException;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +37,7 @@ public class StudyPlanService {
                 .orElseThrow(() -> new PlannerException(BaseResponseStatus.PLANNER_NOT_EXIST));
 
         StudyTag studyTag = studyTagRepository.findById(requestDto.getStudyTagId())
-                .orElseThrow(() -> new PlannerException(BaseResponseStatus.STUDYTAG_NOT_EXIST));
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.TAG_NOT_EXIST));
 
         StudyPlan studyPlan = requestDto.toEntity(planner, studyTag);
 

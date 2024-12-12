@@ -1,4 +1,4 @@
-package Togedy.server.Repository;
+package Togedy.server.Repository.Planner;
 
 import Togedy.server.Entity.StudyPlanner.StudyRecord;
 import org.springframework.data.jpa.repository.JpaRepository;

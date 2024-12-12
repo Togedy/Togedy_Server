@@ -1,11 +1,11 @@
-package Togedy.server.Service;
+package Togedy.server.Service.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyTagRequestDto;
 import Togedy.server.Entity.StudyPlanner.Planner;
 import Togedy.server.Entity.StudyPlanner.StudyTag;
 import Togedy.server.Entity.User.User;
 import Togedy.server.Repository.PlannerRepository;
-import Togedy.server.Repository.StudyTagRepository;
+import Togedy.server.Repository.Planner.StudyTagRepository;
 import Togedy.server.Repository.UserRepository;
 import Togedy.server.Util.BaseResponseStatus;
 import Togedy.server.Util.Exception.Domain.PlannerException;
@@ -36,7 +36,7 @@ public class StudyTagService {
 
         // 스터디 태그 이름 중복 검사
         if (studyTagRepository.existsByNameAndPlanner(requestDto.getName(), planner)) {
-            throw new PlannerException(BaseResponseStatus.DUPLICATED_STUDYTAGNAME);
+            throw new PlannerException(BaseResponseStatus.DUPLICATED_TAG_NAME);
         }
 
         StudyTag studyTag = requestDto.toEntity(planner);

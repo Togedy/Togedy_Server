@@ -66,9 +66,10 @@ public enum BaseResponseStatus {
     /**
      * 6000: Planner 플래너 오류
      */
-    DUPLICATED_STUDYTAGNAME(false, 6001, "중복된 스터디 태그 이름입니다."),
-    STUDYTAG_NOT_EXIST(false, 6002, "존재하지 않는 스터디 태그입니다."),
+    DUPLICATED_TAG_NAME(false, 6001, "중복된 스터디 태그 이름입니다."),
+    TAG_NOT_EXIST(false, 6002, "존재하지 않는 스터디 태그입니다."),
     PLANNER_NOT_EXIST(false, 6003, "존재하지 않는 플래너입니다."),
+    GOAL_NOT_EXIST(false, 6004, "존재하지 않는 스터디 목표입니다."),
 
 
 
