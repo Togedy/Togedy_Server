@@ -41,4 +41,9 @@ public class Planner extends BaseEntity {
         return planner;
     }
 
+    public void addStudyGoal(StudyGoal studyGoal) {
+        this.studyGoals.add(studyGoal);
+        studyGoal.setPlanner(this);
+    }
+
 }
