@@ -23,7 +23,7 @@ public class StudyGoalController {
 
     // 목표 공부량 설정
     @PostMapping("")
-    public BaseResponse<CreateStudyGoalResponseDto> setStudyGoal(
+    public BaseResponse<Map<String, Long>> setStudyGoal(
             @RequestBody @Validated CreateStudyGoalRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember,
             BindingResult bindingResult) {
@@ -31,9 +31,12 @@ public class StudyGoalController {
         // 유효성 검증 실패 시 처리
         if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
 
-        CreateStudyGoalResponseDto responseDto = studyGoalService.setStudyGoal(authMember.getId(), requestDto);
+        Long studyGoalId = studyGoalService.setStudyGoal(authMember.getId(), requestDto);
 
-        return new BaseResponse<>(responseDto);
+        Map<String, Long> response = new HashMap<>();
+        response.put("studyGoalId", studyGoalId);
+
+        return new BaseResponse<>(response);
     }
 
     // 목표 공부량 수정

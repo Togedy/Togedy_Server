@@ -26,7 +26,7 @@ public class StudyGoalService {
 
     // 목표 공부량 설정
     @Transactional
-    public CreateStudyGoalResponseDto setStudyGoal(Long userId, CreateStudyGoalRequestDto requestDto) {
+    public Long setStudyGoal(Long userId, CreateStudyGoalRequestDto requestDto) {
 
         // 사용자 플래너 조회
         Planner planner = plannerRepository.findByUserId(userId)
@@ -51,7 +51,7 @@ public class StudyGoalService {
         StudyGoal savedGoal = studyGoalRepository.findByPlannerAndDate(planner, requestDto.getDate())
                 .orElseThrow(() -> new PlannerException(BaseResponseStatus.GOAL_NOT_EXIST));
 
-        return CreateStudyGoalResponseDto.of(savedGoal);
+        return savedGoal.getId();
     }
 
     // 목표 공부량 수정
