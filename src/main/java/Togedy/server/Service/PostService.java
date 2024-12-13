@@ -114,6 +114,10 @@ public class PostService {
 
     // 게시글 상세 조회
     public ReadPostDetailResponseDto getPostDetail(Long userId, Long postId) {
+        // 유저 조회
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
+
 
         // 게시글 조회
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostException(POST_NOT_EXIST));
@@ -130,7 +134,7 @@ public class PostService {
         // 총 댓글 수 계산 (댓글 + 대댓글 포함)
         int commentCount = commentRepository.findByPost(post).size();
 
-        return ReadPostDetailResponseDto.of(post, isLike, comments, commentCount);
+        return ReadPostDetailResponseDto.of(user, post, isLike, comments, commentCount);
     }
 
     // 댓글 -> DTO 변환

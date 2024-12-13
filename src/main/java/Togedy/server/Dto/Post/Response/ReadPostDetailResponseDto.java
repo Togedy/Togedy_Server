@@ -3,6 +3,7 @@ package Togedy.server.Dto.Post.Response;
 import Togedy.server.Dto.Comment.Response.ReadCommentsResponseDto;
 import Togedy.server.Entity.Board.Post.Post;
 import Togedy.server.Entity.Board.PostImage;
+import Togedy.server.Entity.User.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,9 @@ import java.util.List;
 @AllArgsConstructor
 public class ReadPostDetailResponseDto {
 
+    private String userName;
+    private String userProfileImg;
+
     private String title;
     private LocalDateTime createdAt;
     private String content;
@@ -26,12 +30,14 @@ public class ReadPostDetailResponseDto {
     private List<ReadCommentsResponseDto> comments;
 
 
-    public static ReadPostDetailResponseDto of(Post post, boolean isLike, List<ReadCommentsResponseDto> comments, int commentCount){
+    public static ReadPostDetailResponseDto of(User user, Post post, boolean isLike, List<ReadCommentsResponseDto> comments, int commentCount){
         List<String> postImageUrls = post.getPostImages().stream()
                 .map(PostImage::getImageUrl)
                 .toList();
 
         return ReadPostDetailResponseDto.builder()
+                .userName(user.getNickname())
+                .userProfileImg(user.getProfileImageUrl())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
