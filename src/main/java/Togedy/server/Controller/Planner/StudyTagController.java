@@ -1,6 +1,7 @@
 package Togedy.server.Controller.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyTagRequestDto;
+import Togedy.server.Dto.Planner.Response.ReadStudyTagResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.Planner.StudyTagService;
 import Togedy.server.Util.BaseResponse;
@@ -9,21 +10,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/planner/studytag")
+@RequestMapping("/planner/studyTag")
 public class StudyTagController {
 
     private final StudyTagService studyTagService;
 
+    // 스터디 태그 생성
     @PostMapping("")
     public BaseResponse<Map<String, Long>> createStudyTag(
             @Validated @RequestBody CreateStudyTagRequestDto requestDto,
@@ -39,6 +39,14 @@ public class StudyTagController {
 
         return new BaseResponse<>(response);
 
+    }
+
+    // 스터디 태그 조회
+    @GetMapping("")
+    public BaseResponse<List<ReadStudyTagResponseDto>> getStudyTags(
+            @AuthenticationPrincipal AuthMember authMember) {
+        List<ReadStudyTagResponseDto> studyTags = studyTagService.getStudyTags(authMember.getId());
+        return new BaseResponse<>(studyTags);
     }
 
 }
