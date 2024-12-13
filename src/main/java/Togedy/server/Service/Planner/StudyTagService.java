@@ -66,4 +66,31 @@ public class StudyTagService {
                 .map(ReadStudyTagResponseDto::of)
                 .toList();
     }
+
+    // 스터디 태그 수정
+    @Transactional
+    public Long updateStudyTag(Long userId, Long tagId, CreateStudyTagRequestDto requestDto) {
+        // 사용자 조회
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserException(BaseResponseStatus.USER_NOT_EXIST));
+
+        // 사용자 플래너 조회
+        Planner planner = plannerRepository.findByUser(user)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.PLANNER_NOT_EXIST));
+
+        // 태그 조회
+        StudyTag studyTag = studyTagRepository.findByIdAndPlanner(tagId, planner)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.TAG_NOT_EXIST));
+
+        // 이름 중복 검사 (수정하려는 태그와 동일한 이름이 있는지 확인)
+        if (!studyTag.getName().equals(requestDto.getName()) &&
+                studyTagRepository.existsByNameAndPlanner(requestDto.getName(), planner)) {
+            throw new PlannerException(BaseResponseStatus.DUPLICATED_TAG_NAME);
+        }
+
+        // 태그 정보 업데이트
+        studyTag.updateTag(requestDto.getName(), requestDto.getColor());
+
+        return studyTag.getId();
+    }
 }

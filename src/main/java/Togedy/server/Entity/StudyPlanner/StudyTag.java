@@ -31,4 +31,9 @@ public class StudyTag extends BaseEntity {
         this.name = name;
         this.color = color;
     }
+
+    public void updateTag(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
 }

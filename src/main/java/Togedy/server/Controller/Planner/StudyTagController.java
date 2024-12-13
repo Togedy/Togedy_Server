@@ -8,6 +8,7 @@ import Togedy.server.Util.BaseResponse;
 import Togedy.server.Util.Exception.Validation.FieldValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,5 +49,23 @@ public class StudyTagController {
         List<ReadStudyTagResponseDto> studyTags = studyTagService.getStudyTags(authMember.getId());
         return new BaseResponse<>(studyTags);
     }
+
+    // 스터디 태그 수정
+    @PutMapping("/{tagId}")
+    public BaseResponse<Map<String, Long>> updateStudyTag(
+            @RequestBody @Validated CreateStudyTagRequestDto requestDto,
+            @PathVariable Long tagId,
+            @AuthenticationPrincipal AuthMember authMember,
+            BindingResult bindingResult) {
+        // 유효성 검증 실패 시 처리
+        if (bindingResult.hasErrors()) throw new FieldValidationException(bindingResult);
+
+        Long studyTagId = studyTagService.updateStudyTag(authMember.getId(), tagId, requestDto);
+        Map<String, Long> response = new HashMap<>();
+        response.put("studyTagId", studyTagId);
+
+        return new BaseResponse<>(response);
+    }
+
 
 }
