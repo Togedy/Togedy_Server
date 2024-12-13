@@ -1,7 +1,7 @@
 package Togedy.server.Service.Planner;
 
 import Togedy.server.Dto.Planner.Request.CreateStudyGoalRequestDto;
-import Togedy.server.Dto.Planner.Response.CreateStudyGoalResponseDto;
+import Togedy.server.Dto.Planner.Response.ReadStudyGoalResponseDto;
 import Togedy.server.Entity.StudyPlanner.Planner;
 import Togedy.server.Entity.StudyPlanner.StudyGoal;
 import Togedy.server.Repository.PlannerRepository;
@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Service
@@ -66,5 +68,16 @@ public class StudyGoalService {
         studyGoal.updateTargetTime(requestDto.getTargetTime());
 
         return studyGoal.getId();
+    }
+
+    // 목표 공부량 조회
+    public ReadStudyGoalResponseDto getStudyGoal(Long userId, LocalDate date) {
+        Planner planner = plannerRepository.findByUserId(userId)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.PLANNER_NOT_EXIST));
+
+        StudyGoal studyGoal = studyGoalRepository.findByPlannerAndDate(planner, date)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.GOAL_NOT_EXIST));
+
+        return ReadStudyGoalResponseDto.of(studyGoal);
     }
 }

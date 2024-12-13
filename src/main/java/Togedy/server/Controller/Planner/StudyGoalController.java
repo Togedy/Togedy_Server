@@ -1,7 +1,8 @@
 package Togedy.server.Controller.Planner;
 
+import Togedy.server.Dto.FindByDateRequestDto;
 import Togedy.server.Dto.Planner.Request.CreateStudyGoalRequestDto;
-import Togedy.server.Dto.Planner.Response.CreateStudyGoalResponseDto;
+import Togedy.server.Dto.Planner.Response.ReadStudyGoalResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.Planner.StudyGoalService;
 import Togedy.server.Util.BaseResponse;
@@ -12,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.Binding;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ public class StudyGoalController {
     private final StudyGoalService studyGoalService;
 
     // 목표 공부량 설정
-    @PostMapping("")
+    @PostMapping("/set")
     public BaseResponse<Map<String, Long>> setStudyGoal(
             @RequestBody @Validated CreateStudyGoalRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember,
@@ -53,6 +55,18 @@ public class StudyGoalController {
 
         Map<String, Long> response = new HashMap<>();
         response.put("studyGoalId", studyGoalId);
+
+        return new BaseResponse<>(response);
+    }
+
+    // 목표 공부량 조회
+    @PostMapping("")
+    public BaseResponse<ReadStudyGoalResponseDto> getStudyGoal(
+            @RequestBody @Validated FindByDateRequestDto requestDto,
+            BindingResult bindingResult,
+            @AuthenticationPrincipal AuthMember authMember) {
+
+        ReadStudyGoalResponseDto response = studyGoalService.getStudyGoal(authMember.getId(), requestDto.getDate());
 
         return new BaseResponse<>(response);
     }
