@@ -11,4 +11,6 @@ import java.util.Optional;
 @Repository
 public interface StudyGoalRepository extends JpaRepository<StudyGoal, Long> {
     Optional<StudyGoal> findByPlannerAndDate(Planner planner, LocalDate date);
+
+    Optional<StudyGoal> findByIdAndPlanner(Long id, Planner planner);
 }

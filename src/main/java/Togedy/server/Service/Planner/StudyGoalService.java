@@ -24,6 +24,7 @@ public class StudyGoalService {
     private final PlannerRepository plannerRepository;
     private final StudyGoalRepository studyGoalRepository;
 
+    // 목표 공부량 설정
     @Transactional
     public CreateStudyGoalResponseDto setStudyGoal(Long userId, CreateStudyGoalRequestDto requestDto) {
 
@@ -51,5 +52,19 @@ public class StudyGoalService {
                 .orElseThrow(() -> new PlannerException(BaseResponseStatus.GOAL_NOT_EXIST));
 
         return CreateStudyGoalResponseDto.of(savedGoal);
+    }
+
+    // 목표 공부량 수정
+    @Transactional
+    public Long updateStudyGoal(Long userId, Long goalId, CreateStudyGoalRequestDto requestDto) {
+        Planner planner = plannerRepository.findByUserId(userId)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.PLANNER_NOT_EXIST));
+
+        StudyGoal studyGoal = studyGoalRepository.findByIdAndPlanner(goalId, planner)
+                .orElseThrow(() -> new PlannerException(BaseResponseStatus.GOAL_NOT_EXIST));
+
+        studyGoal.updateTargetTime(requestDto.getTargetTime());
+
+        return studyGoal.getId();
     }
 }
