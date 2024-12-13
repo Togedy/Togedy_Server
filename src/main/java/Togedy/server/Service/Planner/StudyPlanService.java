@@ -1,7 +1,7 @@
 package Togedy.server.Service.Planner;
 
+import Togedy.server.Dto.FindByDateRequestDto;
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
-import Togedy.server.Dto.Planner.Request.ReadStudyPlansRequestDto;
 import Togedy.server.Dto.Planner.Response.ReadStudyPlansResponseDto;
 import Togedy.server.Entity.StudyPlanner.Planner;
 import Togedy.server.Entity.StudyPlanner.StudyPlan;
@@ -44,7 +44,7 @@ public class StudyPlanService {
         return studyPlanRepository.save(studyPlan).getId();
     }
 
-    public List<ReadStudyPlansResponseDto> getStudyPlansByDate(Long userId, ReadStudyPlansRequestDto requestDto) {
+    public List<ReadStudyPlansResponseDto> getStudyPlansByDate(Long userId, FindByDateRequestDto requestDto) {
         // 사용자 플래너 가져오기
         Planner planner = plannerRepository.findByUserId(userId)
                 .orElseThrow(() -> new PlannerException(BaseResponseStatus.PLANNER_NOT_EXIST));

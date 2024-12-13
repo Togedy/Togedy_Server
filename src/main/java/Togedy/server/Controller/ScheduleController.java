@@ -1,14 +1,13 @@
 package Togedy.server.Controller;
 
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
-import Togedy.server.Dto.Calendar.Request.ReadScheduleRequestDto;
 import Togedy.server.Dto.Calendar.Response.ReadDailyResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
+import Togedy.server.Dto.FindByDateRequestDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.ScheduleService;
 import Togedy.server.Util.BaseResponse;
 import Togedy.server.Util.Exception.Validation.FieldValidationException;
-import Togedy.server.Util.Exception.Validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -29,7 +28,7 @@ public class ScheduleController {
     // 개인 월별 캘린더 조회
     @PostMapping("monthly")
     public BaseResponse<List<ReadMonthlyResponseDto>> getMonthlyCalendar(
-            @Validated @RequestBody ReadScheduleRequestDto requestDto,
+            @Validated @RequestBody FindByDateRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember) {
 
         List<ReadMonthlyResponseDto> response = scheduleService.getMonthlyCalendar(authMember.getId(), requestDto.getDate());
@@ -39,7 +38,7 @@ public class ScheduleController {
     // 개인 날짜별 일정 조회
     @PostMapping("daily")
     public BaseResponse<List<ReadDailyResponseDto>> getDailyCalendar(
-            @Validated @RequestBody ReadScheduleRequestDto requestDto,
+            @Validated @RequestBody FindByDateRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember) {
 
         List<ReadDailyResponseDto> response = scheduleService.getDailyCalendar(authMember.getId(), requestDto.getDate());

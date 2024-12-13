@@ -1,4 +1,4 @@
-package Togedy.server.Dto.Planner.Request;
+package Togedy.server.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import java.time.LocalDate;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReadStudyPlansRequestDto {
+public class FindByDateRequestDto {
     private LocalDate date;
 }

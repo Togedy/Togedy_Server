@@ -1,7 +1,7 @@
 package Togedy.server.Controller.Planner;
 
+import Togedy.server.Dto.FindByDateRequestDto;
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
-import Togedy.server.Dto.Planner.Request.ReadStudyPlansRequestDto;
 import Togedy.server.Dto.Planner.Response.ReadStudyPlansResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.Planner.StudyPlanService;
@@ -43,7 +43,7 @@ public class StudyPlanController {
     // 날짜별 스터디 플랜 조회
     @PostMapping("")
     public BaseResponse<List<ReadStudyPlansResponseDto>> getStudyPlansByDate(
-            @RequestBody @Validated ReadStudyPlansRequestDto requestDto,
+            @RequestBody @Validated FindByDateRequestDto requestDto,
             @AuthenticationPrincipal AuthMember authMember,
             BindingResult bindingResult) {
         // 유효성 검증 실패 시 처리
