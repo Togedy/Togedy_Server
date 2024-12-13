@@ -42,7 +42,7 @@ public class CategoryController {
     }
 
     // 카테고리 조회
-    @GetMapping("/schedule")
+    @GetMapping("/category")
     public BaseResponse<List<ReadCategoryResponseDto>> getUserCategories(
             @AuthenticationPrincipal AuthMember authMember) {
 
