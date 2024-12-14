@@ -35,7 +35,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "oauth_id")
     private OAuth oauth;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "planner_id")
     private Planner planner;
 
     public static User createUser(String email, String nickname) {
@@ -43,6 +44,10 @@ public class User extends BaseEntity {
         user.email = email;
         user.nickname = nickname;
         user.status = UserStatus.ACTIVE;
+
+        Planner planner = Planner.createPlanner(user);
+        user.planner = planner;
+
         return user;
     }
     public void createOauthAssociation(OAuth oAuth) {
