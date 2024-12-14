@@ -21,7 +21,7 @@ public class ReadStudyGoalResponseDto {
         return ReadStudyGoalResponseDto.builder()
                 .id(studyGoal.getId())
                 .targetTime(studyGoal.getTargetTime())
-                .targetTime(studyGoal.getActualTime())
+                .actualTime(studyGoal.getActualTime())
                 .achievement(studyGoal.calculateAchievement())
                 .build();
     }
