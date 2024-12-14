@@ -3,7 +3,7 @@ package Togedy.server.Controller;
 import Togedy.server.Dto.Calendar.Request.CreatePersonalScheduleRequestDto;
 import Togedy.server.Dto.Calendar.Response.ReadDailyResponseDto;
 import Togedy.server.Dto.Calendar.Response.ReadMonthlyResponseDto;
-import Togedy.server.Dto.FindByDateRequestDto;
+import Togedy.server.Dto.Common.FindByDateRequestDto;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.ScheduleService;
 import Togedy.server.Util.BaseResponse;

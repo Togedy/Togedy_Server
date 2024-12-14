@@ -1,8 +1,10 @@
 package Togedy.server.Controller.Planner;
 
-import Togedy.server.Dto.FindByDateRequestDto;
+import Togedy.server.Dto.Common.FindByDateRequestDto;
 import Togedy.server.Dto.Planner.Request.CreateStudyPlanRequestDto;
 import Togedy.server.Dto.Planner.Response.ReadStudyPlansResponseDto;
+import Togedy.server.Dto.Planner.Response.UpdateStatusResponseDto;
+import Togedy.server.Entity.StudyPlanner.PlanStatus;
 import Togedy.server.Security.Auth.AuthMember;
 import Togedy.server.Service.Planner.StudyPlanService;
 import Togedy.server.Util.BaseResponse;
@@ -54,6 +56,15 @@ public class StudyPlanController {
         return new BaseResponse<>(response);
     }
 
+    // 스터디 플랜 상태 변경
+    @PutMapping("/{studyPlanId}/status")
+    public BaseResponse<UpdateStatusResponseDto> updateStatus(
+            @PathVariable Long studyPlanId,
+            @RequestParam String status,
+            @AuthenticationPrincipal AuthMember authMember) {
 
+        UpdateStatusResponseDto response = studyPlanService.updateStatus(authMember.getId(), studyPlanId, PlanStatus.valueOf(status));
 
+        return new BaseResponse<>(response);
+    }
 }

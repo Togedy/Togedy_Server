@@ -40,4 +40,8 @@ public class StudyPlan extends BaseEntity {
         this.date = date;
         this.studyTag = studyTag;
     }
+
+    public void updateStatus(PlanStatus status) {
+        this.status = status;
+    }
 }

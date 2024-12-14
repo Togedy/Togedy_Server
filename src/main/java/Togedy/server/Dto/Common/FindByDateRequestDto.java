@@ -1,4 +1,4 @@
-package Togedy.server.Dto;
+package Togedy.server.Dto.Common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

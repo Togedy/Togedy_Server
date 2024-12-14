@@ -70,6 +70,7 @@ public enum BaseResponseStatus {
     TAG_NOT_EXIST(false, 6002, "존재하지 않는 스터디 태그입니다."),
     PLANNER_NOT_EXIST(false, 6003, "존재하지 않는 플래너입니다."),
     GOAL_NOT_EXIST(false, 6004, "존재하지 않는 스터디 목표입니다."),
+    PLAN_NOT_EXIST(false, 6005, "존재하지 않는 스터디 플랜입니다."),
 
 
 

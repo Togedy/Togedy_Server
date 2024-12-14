@@ -1,6 +1,6 @@
 package Togedy.server.Controller.Planner;
 
-import Togedy.server.Dto.FindByDateRequestDto;
+import Togedy.server.Dto.Common.FindByDateRequestDto;
 import Togedy.server.Dto.Planner.Request.CreateStudyGoalRequestDto;
 import Togedy.server.Dto.Planner.Response.ReadStudyGoalResponseDto;
 import Togedy.server.Security.Auth.AuthMember;
@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Binding;
 import java.util.HashMap;
 import java.util.Map;
 
