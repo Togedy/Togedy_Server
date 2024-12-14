@@ -44,7 +44,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user/**", "oauth/**", "/board/**", "calendar/**", "/error","/").permitAll()
+                        .requestMatchers("/user/**", "oauth/**", "/board/**", "calendar/**", "planner/**", "/error","/").permitAll()
+
                         // H2 콘솔 경로를 허용
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .anyRequest().authenticated()
