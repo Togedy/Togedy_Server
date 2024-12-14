@@ -2,9 +2,6 @@ package Togedy.server.Dto.Planner.Request;
 
 import Togedy.server.Entity.StudyPlanner.Planner;
 import Togedy.server.Entity.StudyPlanner.StudyGoal;
-import Togedy.server.Entity.StudyPlanner.StudyPlan;
-import Togedy.server.Entity.StudyPlanner.StudyTag;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

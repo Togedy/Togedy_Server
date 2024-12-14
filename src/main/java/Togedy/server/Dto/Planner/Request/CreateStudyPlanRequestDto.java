@@ -4,6 +4,7 @@ import Togedy.server.Entity.StudyPlanner.Planner;
 import Togedy.server.Entity.StudyPlanner.StudyPlan;
 import Togedy.server.Entity.StudyPlanner.StudyTag;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,10 +21,10 @@ public class CreateStudyPlanRequestDto {
     @NotBlank(message = "내용은 필수 항목입니다.")
     private String name;
 
-    @NotBlank(message = "날짜는 필수 항목입니다.")
+    @NotNull(message = "날짜는 필수 항목입니다.")
     private LocalDate date;
 
-    @NotBlank(message = "스터디태그는 필수 항목입니다.")
+    @NotNull(message = "스터디태그는 필수 항목입니다.")
     private Long studyTagId;
 
     public StudyPlan toEntity(Planner planner, StudyTag studyTag) {
