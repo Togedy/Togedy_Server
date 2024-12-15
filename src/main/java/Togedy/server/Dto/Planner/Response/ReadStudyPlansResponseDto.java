@@ -14,19 +14,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReadStudyPlansResponseDto {
-    private Long id;
+    private Long studyPlanId;
     private String name;
-    private String studyTagColor;
     private PlanStatus planStatus;
+    private Long studyTagId;
+    private String studyTagColor;
     private List<List<String>> studyRecords;
 
     public static ReadStudyPlansResponseDto of (StudyPlan studyPlan, List<List<String>> studyRecord) {
 
         return ReadStudyPlansResponseDto.builder()
-                .id(studyPlan.getId())
+                .studyPlanId(studyPlan.getId())
                 .name(studyPlan.getName())
-                .studyTagColor(studyPlan.getStudyTag().getColor())
                 .planStatus(studyPlan.getStatus())
+                .studyTagId(studyPlan.getStudyTag().getId())
+                .studyTagColor(studyPlan.getStudyTag().getColor())
                 .studyRecords(studyRecord)
                 .build();
     }
